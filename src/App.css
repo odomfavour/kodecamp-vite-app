@@ -1,0 +1,15 @@
+.books-container {
+  width: 90%;
+  margin: 30px auto;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.book {
+  width: 24%;
+}
+
+.book img {
+  height: 200px;
+}
