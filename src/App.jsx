@@ -5,7 +5,7 @@
 // close every element
 // const BookList = () => {};
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 // const desc = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quasi magni blanditiis dicta quidem eos aut molestiae? Aliquid, tempora.
 // Consequatur natus facilis doloribus voluptates eligendi aliquid, modi esse
@@ -50,6 +50,9 @@ const BookList = () => {
     message: 'Can I be 39 years?',
   });
   const [count, setCount] = useState(0);
+  const [value, setValue] = useState(0);
+  const [size, setSize] = useState(window.innerWidth);
+  const [users, setUsers] = useState([]);
 
   console.log(text);
 
@@ -79,6 +82,52 @@ const BookList = () => {
       setCount(count + 1);
     }, 3000);
   };
+
+  useEffect(() => {
+    console.log('Call useEffect');
+    if (value > 0) {
+      document.title = `New Messages(${value})`;
+    }
+
+    // return () => {
+    //   second
+    // }
+  }, [value]);
+
+  const checkSize = () => {
+    setSize(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', checkSize);
+    // cleanup function
+
+    return () => {
+      window.removeEventListener('resize', checkSize);
+    };
+  });
+
+  useEffect(() => {
+    console.log('Hello');
+  }, [value]);
+
+  const url = 'https://api.github.com/users';
+
+  const getUsers = async () => {
+    const response = await fetch(url);
+    const users = await response.json();
+    console.log(users);
+    setUsers(users);
+  };
+
+  console.log('users', users);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  console.log('render component');
+
   return (
     <>
       <div>
@@ -130,6 +179,32 @@ const BookList = () => {
             increase later
           </button>
         </div>
+      </div>
+      <div style={{ marginTop: '30px' }}>
+        <h2>{value}</h2>
+        <button className='btn' onClick={() => setValue(value + 1)}>
+          Increase Msg Count
+        </button>
+      </div>
+      <div style={{ marginTop: '30px' }}>
+        <h3>Window resize</h3>
+        <h2>{size}PX</h2>
+      </div>
+      <div style={{ marginTop: '30px' }}>
+        <h3>Github users</h3>
+        {users.map((user) => {
+          const { id, login, avatar_url, html_url } = user;
+
+          return (
+            <li key={id}>
+              <img src={avatar_url} alt={login} />
+              <div>
+                <h5>{login}</h5>
+                <a href={html_url}>Profile</a>
+              </div>
+            </li>
+          );
+        })}
       </div>
     </>
   );
