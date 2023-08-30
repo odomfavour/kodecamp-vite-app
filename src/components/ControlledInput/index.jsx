@@ -9,7 +9,7 @@ const ControlledInput = () => {
   };
   const [person, setPerson] = useState(cleared);
   const [people, setPeople] = useState([]);
-  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
   // const [email, setEmail] = useState('');
   // const [address, setAddress] = useState('');
@@ -29,13 +29,11 @@ const ControlledInput = () => {
     }
   };
 
-  // useEffect(() => {
-  //   // if (!person.name && !person.email && !person.address) {
-  //   //   setIsBtnDisabled(true);
-  //   // } else {
-  //   //   setIsBtnDisabled(true);
-  //   // }
-  // }, [person]);
+  useEffect(() => {
+    if (person.name && person.email && person.address) {
+      setIsBtnDisabled(false);
+    }
+  }, [person]);
 
   return (
     <div>
@@ -77,7 +75,9 @@ const ControlledInput = () => {
           </div>
         </div>
         <div>
-          <button className='btn'>Submit</button>
+          <button className='btn' disabled={isBtnDisabled}>
+            Submit
+          </button>
         </div>
       </form>
       {people &&

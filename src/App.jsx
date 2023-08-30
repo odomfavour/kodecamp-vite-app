@@ -1,9 +1,9 @@
-import ControlledInput from './components/ControlledInput/index';
+import ColorChanger from './components/ColorChanger/Index';
 
 const App = () => {
   return (
     <div>
-      <ControlledInput />
+      <ColorChanger />
     </div>
   );
 };
