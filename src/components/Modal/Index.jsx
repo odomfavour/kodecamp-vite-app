@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const Modal = ({ modalContent, closeModal }) => {
   useEffect(() => {

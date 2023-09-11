@@ -31,3 +31,9 @@
 .dark {
   background: #535050;
 }
+
+.flex {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+}
